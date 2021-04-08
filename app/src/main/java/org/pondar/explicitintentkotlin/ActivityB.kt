@@ -13,12 +13,11 @@ class ActivityB : AppCompatActivity() {
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_b)
-
         //notice use of Elvis operator
         val extras = intent.extras ?: return
-
         val qString = extras.getString(Constants.QUESTION_KEY)
-        textView1.text = qString
+        if (qString!=null)
+            textView1.text = qString
     }
 
     fun onClick(view: View) {
@@ -27,7 +26,6 @@ class ActivityB : AppCompatActivity() {
 
     override fun finish() {
         val data = Intent()
-
         val returnString = editText1.text.toString()
         data.putExtra(Constants.RETURN_KEY, returnString)
         setResult(Activity.RESULT_OK, data)
