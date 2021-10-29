@@ -6,18 +6,25 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import kotlinx.android.synthetic.main.activity_b.*
+import org.pondar.explicitintentkotlin.databinding.ActivityABinding
+import org.pondar.explicitintentkotlin.databinding.ActivityBBinding
 
 
 class ActivityB : AppCompatActivity() {
 
+    lateinit var binding : ActivityBBinding
+
+
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_b)
+        binding = ActivityBBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
         //notice use of Elvis operator
         val extras = intent.extras ?: return
         val qString = extras.getString(Constants.QUESTION_KEY)
         if (qString!=null)
-            textView1.text = qString
+            binding.textView1.text = qString
     }
 
     fun onClick(view: View) {

@@ -6,13 +6,21 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import kotlinx.android.synthetic.main.activity_a.*
+import org.pondar.explicitintentkotlin.databinding.ActivityABinding
 
 class ActivityA : AppCompatActivity() {
-    val REQUEST_CODE = 5
+    private val REQUEST_CODE = 5
+
+
+    lateinit var binding : ActivityABinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_a)
+
+        binding = ActivityABinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
     }
 
 
@@ -20,7 +28,7 @@ class ActivityA : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             val returnString = data?.extras!!.getString(Constants.RETURN_KEY)
-            textView1.text = returnString
+            binding.textView1.text = returnString
         }
     }
 
@@ -37,6 +45,7 @@ class ActivityA : AppCompatActivity() {
         val myString = editText1.text.toString()
         i.putExtra("qString", myString)
         startActivityForResult(i, REQUEST_CODE)
+
     }
 
 
